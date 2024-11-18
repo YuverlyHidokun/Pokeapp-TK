@@ -29,12 +29,7 @@ Contenido : Una aplicacion hecha con Ionic y Angular que esta usando la API de P
 1. Para crear el proyecto en IONIC usaremos el siguiente comando
    ```bash
    ionic start APLICACION blank --type=angular
-2. Dentro de nuestro proyecto de ionic para autenticación
-   ```bash
-   ionic g page login
-   ionic g service services/auth
-   ionic g service services/avatar
-3. Y de paso instalamos los respectivos capacitadores 
+2. Instalamos capacitadores 
    ```bash
    npm i @ionic/pwa-elements
 4. E integramos firebase en nuestro proyecto 
