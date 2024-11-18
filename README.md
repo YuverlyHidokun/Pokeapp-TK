@@ -14,16 +14,12 @@ Contenido : Una aplicacion hecha con Ionic y Angular que esta usando la API de P
 
 ### Interfaz Principal
 
-![image](https://github.com/user-attachments/assets/98312bb3-64af-42d5-9297-9b30bf5b3105)
+![image](https://github.com/YuverlyHidokun/Pokeapp-TK/blob/master/Busqueda.jpeg)
 
-### Auntenticación
+### Busqueda (Encontrado)
 
 
-![image3](https://github.com/Eduardo-Caza/Trabajo-Grupal-CG/blob/main/Auth.png)
-
-### Chat
-
-![Ejemplo](https://github.com/Eduardo-Caza/Geolocalizacion/blob/master/Chat.png)
+![image3](https://github.com/YuverlyHidokun/Pokeapp-TK/blob/master/Busqueda2.jpeg)
 
 
 ---
