@@ -1,18 +1,50 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Pokémon List</ion-title>
+    <ion-title>Pokedex</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-list>
-    <ion-item *ngFor="let pokemon of pokemons">
-      <ion-label>{{ pokemon.name | titlecase }}</ion-label>
-      <a href="{{ pokemon.url}}"><ion-label>{{ pokemon.url}}</ion-label></a>
-      
-    </ion-item>
-  
-  </ion-list>
+<ion-content class="pokemon-container">
 
-  <ion-spinner *ngIf="loading" class="loading-spinner"></ion-spinner>
+  <!-- Barra de búsqueda -->
+  <ion-searchbar 
+    [(ngModel)]="searchQuery" 
+    (ionInput)="searchPokemon()" 
+    debounce="500"
+    placeholder="Busca un Pokémon por nombre">
+  </ion-searchbar>
+
+  <!-- Mensaje de error -->
+  <div *ngIf="errorMessage" class="error-message">
+    <ion-text color="danger">{{ errorMessage }}</ion-text>
+  </div>
+
+  <!-- Detalles del Pokémon -->
+  <div *ngIf="pokemonDetails" class="pokemon-details">
+    <div class="pokemon-header">
+      <h2>{{ pokemonDetails.name | titlecase }}</h2>
+      <img [src]="pokemonDetails.sprites.front_default" alt="{{ pokemonDetails.name }}">
+    </div>
+
+    <div class="pokemon-info">
+      <p><strong>Tipo(s):</strong> 
+        <span *ngFor="let type of pokemonDetails.types">
+          {{ type.type.name | titlecase }} 
+        </span>
+      </p>
+
+      <p><strong>Habilidades:</strong> 
+        <span *ngFor="let ability of pokemonDetails.abilities">
+          {{ ability.ability.name | titlecase }} 
+        </span>
+      </p>
+
+      <p><strong>Altura:</strong> {{ pokemonDetails.height / 10 }} m</p>
+      <p><strong>Peso:</strong> {{ pokemonDetails.weight / 10 }} kg</p>
+    </div>
+  </div>
+
+  <!-- Indicador de carga -->
+  <ion-spinner *ngIf="loading" name="dots"></ion-spinner>
+
 </ion-content>
