@@ -56,5 +56,4 @@ Contenido : Una aplicacion hecha con Ionic y Angular que esta usando la API de P
 4. O miramos en nuestro ordenador con ionic serve
    ```bash
    ionic serve
-5. Ejecucion del Programa:
-![android studio](https://github.com/Eduardo-Caza/Geolocalizacion/blob/master/ejecucion.png)
+
