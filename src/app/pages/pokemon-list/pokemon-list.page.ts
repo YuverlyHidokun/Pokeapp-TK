@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PokemonService } from 'src/app/services/pokemon.service';
+import { FavoritesService } from 'src/app/services/favorites.service';
 
 @Component({
   selector: 'app-pokemon-list',
@@ -11,35 +12,75 @@ export class PokemonListPage implements OnInit {
   pokemonDetails: any = null;      // Detalles del Pokémon
   loading = false;                 // Indicador de carga
   errorMessage: string = '';       // Mensaje de error
+  pokemons: any[] = [];            // Lista de Pokémon
+  filteredPokemons: any[] = [];    // Pokémon filtrados para búsqueda
 
-  constructor(private pokemonService: PokemonService) {}
+  constructor(
+    private pokemonService: PokemonService,
+    private favoritesService: FavoritesService
+  ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.fetchPokemons(); // Cargar lista de Pokémon al iniciar
+  }
 
-  // Función para buscar un Pokémon por nombre
+  // Función para buscar Pokémon por nombre
   searchPokemon() {
     if (!this.searchQuery.trim()) {
-      this.pokemonDetails = null; // Si no hay nombre, no mostrar detalles.
+      this.pokemonDetails = null; // Si no hay texto de búsqueda, limpiar detalles
+      this.filteredPokemons = this.pokemons; // Mostrar todos los Pokémon
       return;
     }
 
     this.loading = true;
     this.pokemonService.getPokemonDetails(this.searchQuery.toLowerCase()).subscribe({
       next: (response) => {
-        this.pokemonDetails = response; // Guardar los detalles del Pokémon
+        this.pokemonDetails = response; // Mostrar detalles del Pokémon encontrado
         this.errorMessage = '';         // Limpiar el mensaje de error
+        this.filteredPokemons = [];     // Ocultar lista al mostrar detalles
         this.loading = false;
       },
       error: (error) => {
         console.error('Error fetching Pokémon details:', error);
-        this.errorMessage = 'Pokémon no encontrado'; // Mostrar mensaje de error
+        this.errorMessage = 'Pokémon no encontrado'; // Mostrar error
         this.pokemonDetails = null; // Limpiar los detalles previos
         this.loading = false;
       },
     });
   }
 
-  // Función para obtener el color de las barras de estadísticas
+  // Cargar lista de Pokémon
+  fetchPokemons() {
+    this.loading = true;
+    this.pokemonService.getPokemons(50).subscribe({
+      next: (response) => {
+        this.pokemons = response.results;
+        this.filteredPokemons = [...this.pokemons]; // Inicializar filtrados con todos los Pokémon
+        this.loading = false;
+      },
+      error: (error) => {
+        console.error('Error fetching Pokémon list:', error);
+        this.loading = false;
+      },
+    });
+  }
+
+  // Verificar si un Pokémon está en favoritos
+  isFavorite(pokemon: any): boolean {
+    return this.favoritesService.isFavorite(pokemon.name);
+  }
+
+  // Añadir Pokémon a favoritos
+  addToFavorites(pokemon: any) {
+    this.favoritesService.addFavorite(pokemon);
+  }
+
+  // Eliminar Pokémon de favoritos
+  removeFromFavorites(pokemon: any) {
+    this.favoritesService.removeFavorite(pokemon.name);
+  }
+
+  // Obtener color para las barras de estadísticas
   getStatColor(statName: string): string {
     switch (statName) {
       case 'hp':
