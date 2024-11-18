@@ -6,7 +6,7 @@ El proyecto utilizo el siguiente API [API Pokemon](https://pokeapi.co/)
 
 Contenido : Una aplicacion hecha con Ionic y Angular que esta usando la API de Pokemon para traer lo datos de esta a nuestra aplicación.
 
-> **Descarga la apk**: [Descargar archivo](https://github.com/Eduardo-Caza/Geolocalizacion/blob/master/Geolocalizacion.apk)
+> **Descarga la apk**: [Descargar archivo](https://github.com/YuverlyHidokun/Pokeapp-TK/blob/master/pokeapp-khaos-master-d6101e-debug.apk)
 
 ---
 
