@@ -19,21 +19,6 @@
     <ion-text color="danger">{{ errorMessage }}</ion-text>
   </div>
 
-  <!-- Lista de Pokémon -->
-  <ion-list *ngIf="!pokemonDetails">
-    <ion-item *ngFor="let pokemon of filteredPokemons">
-      <ion-label>{{ pokemon.name | titlecase }}</ion-label>
-
-      <!-- Botones de favoritos -->
-      <ion-button *ngIf="!isFavorite(pokemon)" (click)="addToFavorites(pokemon)">
-        Añadir a Favoritos
-      </ion-button>
-      <ion-button *ngIf="isFavorite(pokemon)" color="danger" (click)="removeFromFavorites(pokemon)">
-        Eliminar de Favoritos
-      </ion-button>
-    </ion-item>
-  </ion-list>
-
   <!-- Detalles del Pokémon -->
   <div *ngIf="pokemonDetails" class="pokemon-details">
     <div class="pokemon-header">
@@ -66,7 +51,7 @@
           {{ stat.stat.name | titlecase }}:
         </div>
         <ion-progress-bar 
-          [value]="stat.base_stat / 120" 
+          value="(stat.base_stat / 120)" 
           [buffer]="1" 
           [color]="getStatColor(stat.stat.name)">
         </ion-progress-bar>
@@ -88,4 +73,3 @@
   <ion-spinner *ngIf="loading" name="dots"></ion-spinner>
 
 </ion-content>
-

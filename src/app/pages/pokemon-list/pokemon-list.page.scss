@@ -1,107 +1,102 @@
 .pokemon-container {
-  --background: #f9f9f9;
+  --background: #ffda05; /* Fondo claro similar al diseño */
   padding: 20px;
   font-family: 'Roboto', sans-serif;
-  text-align: center; /* Centrar todo el contenido */
+  text-align: center;
+  background-color: var(--background);
+}
+
+ion-toolbar {
+  --background: #ff4800; /* Encabezado morado claro */
 }
 
 ion-searchbar {
-  margin-bottom: 20px;
+  margin: 20px auto;
   background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+  max-width: 400px;
+}
+
+button {
+  padding: 10px 20px;
+  margin: 10px 5px;
+  border: none;
   border-radius: 8px;
-  padding-left: 10px;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button#filter-type {
+  background-color: #f57c00; /* Botón naranja */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+button#next {
+  background-color: #f51818; /* Botón morado */
+}
+
+button:hover {
+  opacity: 0.9;
 }
 
 .pokemon-details {
   background: #fff;
-  border: 2px solid #007bff;
-  border-radius: 8px;
+  border-radius: 12px;
   padding: 20px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-  text-align: center;
-}
-
-.pokemon-header {
-  margin-bottom: 20px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  max-width: 350px;
+  margin: 20px auto;
+  text-align: left;
 }
 
 .pokemon-header h2 {
   font-size: 2rem;
-  text-transform: capitalize;
   color: #333;
-  font-weight: bold;
-  margin: 10px 0;
+  margin: 0 0 10px;
 }
 
 .pokemon-header img {
-  width: 150px;
-  height: 150px;
+  width: 200px;
+  height: 200px;
   object-fit: contain;
-  border: 3px solid #ddd;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin-bottom: 15px;
 }
 
-.pokemon-info {
-  font-size: 1.1rem;
-  color: #333;
-  line-height: 1.6;
-  margin-top: 20px;
-}
-
-.pokemon-info h3 {
-  font-size: 1.4rem;
-  color: #007bff;
-  margin-bottom: 10px;
-}
-
-.types,
-.abilities,
-.moves {
-  margin-bottom: 15px;
-}
-
-.type-badge,
-.ability-badge,
-.move-badge {
+.type-badge {
   display: inline-block;
-  padding: 5px 10px;
+  padding: 8px 12px;
   margin: 5px;
-  background-color: #007bff;
-  color: #fff;
-  border-radius: 5px;
+  border-radius: 15px;
   font-weight: bold;
+  color: #000000;
 }
 
-.stat {
-  margin: 15px 0;
+.type-badge.fire {
+  background-color: #f57c00;
 }
 
+.type-badge.flying {
+  background-color: #7e57c2;
+}
+
+/* Similar estructura para las habilidades y movimientos */
+.ability-badge, .move-badge {
+  background-color: #4caf50; /* Verde claro */
+  color: #fff;
+}
+
+/* Estadísticas */
 .stat-name {
+  color: #333;
   font-weight: bold;
 }
 
 ion-progress-bar {
-  margin-top: 10px;
-  height: 15px; /* Aseguramos que la barra de progreso tenga una altura cómoda */
-  border-radius: 5px;
-}
-
-.stat-value {
-  margin-top: 5px;
-  font-weight: bold;
-  color: #333;
-}
-
-.error-message {
-  margin: 20px 0;
-  text-align: center;
-  color: red;
-  font-weight: bold;
-}
-
-ion-spinner {
-  display: block;
-  margin: 30px auto;
+  --progress-background: #e0e0e0;
+  --progress-color: #4caf50; /* Verde claro para la barra de progreso */
+  margin: 10px 0;
 }
