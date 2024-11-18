@@ -1,18 +1,75 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Pokémon List</ion-title>
+    <ion-title>Pokedex</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-list>
-    <ion-item *ngFor="let pokemon of pokemons">
-      <ion-label>{{ pokemon.name | titlecase }}</ion-label>
-      <a href="{{ pokemon.url}}"><ion-label>{{ pokemon.url}}</ion-label></a>
-      
-    </ion-item>
-  
-  </ion-list>
+<ion-content class="pokemon-container">
 
-  <ion-spinner *ngIf="loading" class="loading-spinner"></ion-spinner>
+  <!-- Barra de búsqueda -->
+  <ion-searchbar 
+    [(ngModel)]="searchQuery" 
+    (ionInput)="searchPokemon()" 
+    debounce="500"
+    placeholder="Busca un Pokémon por nombre">
+  </ion-searchbar>
+
+  <!-- Mensaje de error -->
+  <div *ngIf="errorMessage" class="error-message">
+    <ion-text color="danger">{{ errorMessage }}</ion-text>
+  </div>
+
+  <!-- Detalles del Pokémon -->
+  <div *ngIf="pokemonDetails" class="pokemon-details">
+    <div class="pokemon-header">
+      <h2>{{ pokemonDetails.name | titlecase }}</h2>
+      <img [src]="pokemonDetails.sprites.front_default" alt="{{ pokemonDetails.name }}">
+    </div>
+
+    <div class="pokemon-info">
+      <h3>Tipo(s):</h3>
+      <div class="types">
+        <span *ngFor="let type of pokemonDetails.types" class="type-badge">
+          {{ type.type.name | titlecase }}
+        </span>
+      </div>
+      
+      <h3>Habilidades:</h3>
+      <div class="abilities">
+        <span *ngFor="let ability of pokemonDetails.abilities" class="ability-badge">
+          {{ ability.ability.name | titlecase }}
+        </span>
+      </div>
+
+      <h3>Información adicional:</h3>
+      <p><strong>Altura:</strong> {{ pokemonDetails.height / 10 }} m</p>
+      <p><strong>Peso:</strong> {{ pokemonDetails.weight / 10 }} kg</p>
+
+      <h3>Estadísticas:</h3>
+      <div *ngFor="let stat of pokemonDetails.stats" class="stat">
+        <div class="stat-name">
+          {{ stat.stat.name | titlecase }}:
+        </div>
+        <ion-progress-bar 
+          value="(stat.base_stat / 120)" 
+          [buffer]="1" 
+          [color]="getStatColor(stat.stat.name)">
+        </ion-progress-bar>
+        <div class="stat-value">
+          {{ stat.base_stat }}/120
+        </div>
+      </div>
+
+      <h3>Movimientos:</h3>
+      <div class="moves">
+        <span *ngFor="let move of pokemonDetails?.moves?.slice(0, 10)" class="move-badge">
+          {{ move?.move?.name | titlecase }}
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Indicador de carga -->
+  <ion-spinner *ngIf="loading" name="dots"></ion-spinner>
+
 </ion-content>
