@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PokemonService } from 'src/app/services/pokemon.service';
 
 @Component({
   selector: 'app-pokemon-list',
@@ -6,10 +7,27 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./pokemon-list.page.scss'],
 })
 export class PokemonListPage implements OnInit {
+  pokemons: any[] = [];
+  loading = false;
 
-  constructor() { }
+  constructor(private pokemonService: PokemonService) {}
 
   ngOnInit() {
+    this.fetchPokemons();
+    
   }
 
+  fetchPokemons() {
+    this.loading = true;
+    this.pokemonService.getPokemons(50).subscribe({
+      next: (response) => {
+        this.pokemons = response.results;
+        this.loading = false;
+      },
+      error: (error) => {
+        console.error('Error fetching Pokémon:', error);
+        this.loading = false;
+      },
+    });
+  }
 }
