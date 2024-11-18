@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PokemonService } from 'src/app/services/pokemon.service';
+import { FavoritesService } from 'src/app/services/favorites.service';
 
 @Component({
   selector: 'app-pokemon-list',
@@ -10,11 +11,13 @@ export class PokemonListPage implements OnInit {
   pokemons: any[] = [];
   loading = false;
 
-  constructor(private pokemonService: PokemonService) {}
+  constructor(
+    private pokemonService: PokemonService,
+    private favoritesService: FavoritesService
+  ) {}
 
   ngOnInit() {
     this.fetchPokemons();
-    
   }
 
   fetchPokemons() {
@@ -29,5 +32,18 @@ export class PokemonListPage implements OnInit {
         this.loading = false;
       },
     });
+  }
+
+  isFavorite(pokemon: any): boolean {
+    return this.favoritesService.isFavorite(pokemon.name);
+  }
+
+  addToFavorites(pokemon: any) {
+    this.favoritesService.addFavorite(pokemon);
+  }
+
+
+  removeFromFavorites(pokemon: any) {
+    this.favoritesService.removeFavorite(pokemon.name);
   }
 }
